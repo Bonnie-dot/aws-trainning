@@ -1,0 +1,29 @@
+version: "3.7"
+services:
+  frontend:
+    build: frontend
+    volumes:
+      - ./frontend:/frontend
+    ports:
+      - 3000:3000
+  backend:
+    build: backend
+    ports:
+      - 5000:5000
+    volumes:
+      - ./backend:/backend
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_DB: todos
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - todo-mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: todos
+
+volumes:
+  todo-mysql-data:
